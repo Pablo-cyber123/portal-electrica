@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.env*
+.vercel
+prisma/*.db
+prisma/*.db-journal
+*.zip
+*.tar.gz
+portal-electrica.zip

@@ -1,0 +1,169 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  password       String
+  name           String
+  role           String          @default("GUEST")
+  createdAt      DateTime        @default(now())
+  studentProfile StudentProfile?
+  teacherProfile TeacherProfile?
+  uploadedDocs   OfficialDocument[]
+}
+
+model OfficialDocument {
+  id          String   @id @default(cuid())
+  title       String
+  category    String
+  fileUrl     String
+  uploaderId  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  uploader    User?    @relation(fields: [uploaderId], references: [id])
+}
+
+model StudentProfile {
+  id          String       @id @default(cuid())
+  userId      String       @unique
+  code        String       @unique
+  status      String       @default("ACTIVE")
+  enrollments Enrollment[]
+  projects    ResearchProjectStudent[]
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TeacherProfile {
+  id         String    @id @default(cuid())
+  userId     String    @unique
+  employeeId String    @unique
+  department String
+  subjects   Subject[]
+  projects   ResearchProject[]
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Subject {
+  id            String                @id @default(cuid())
+  code          String                @unique
+  name          String
+  credits       Int
+  teacherId     String
+  enrollments   Enrollment[]
+  announcements SubjectAnnouncement[]
+  teacher       TeacherProfile        @relation(fields: [teacherId], references: [id])
+}
+
+model Enrollment {
+  id        String         @id @default(cuid())
+  studentId String
+  subjectId String
+  period    String
+  subject   Subject        @relation(fields: [subjectId], references: [id])
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  grades    Grade[]
+
+  @@unique([studentId, subjectId])
+}
+
+model Grade {
+  id           String     @id @default(cuid())
+  enrollmentId String
+  cutNumber    Int
+  score        Float
+  observation  String?
+  status       String     @default("FROZEN")
+  createdAt    DateTime   @default(now())
+  enrollment   Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  resource  String
+  ip        String?
+  timestamp DateTime @default(now())
+}
+
+model NewsArticle {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  imageUrl  String?
+  linkUrl   String?
+  videoUrl  String?
+  authorId  String
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model SubjectAnnouncement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  subjectId String
+  authorId  String
+  createdAt DateTime @default(now())
+  subject   Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+}
+
+model ResearchProject {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String
+  status      String   @default("En Fase Temprana")
+  progress    Int      @default(0)
+  createdAt   DateTime @default(now())
+  
+  teacherId   String
+  teacher     TeacherProfile @relation(fields: [teacherId], references: [id])
+  
+  students    ResearchProjectStudent[]
+  updates     ProjectUpdate[]
+  tasks       ProjectTask[]
+}
+
+model ResearchProjectStudent {
+  id          String         @id @default(cuid())
+  projectId   String
+  studentId   String
+  project     ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  student     StudentProfile  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, studentId])
+}
+
+model ProjectUpdate {
+  id          String   @id @default(cuid())
+  projectId   String
+  authorId    String   // could be student or teacher User ID
+  title       String
+  content     String
+  imageUrl    String?
+  videoUrl    String?
+  documentUrl String?
+  createdAt   DateTime @default(now())
+  
+  project     ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ProjectTask {
+  id          String   @id @default(cuid())
+  projectId   String
+  title       String
+  description String?
+  status      String   @default("PENDIENTE") // PENDIENTE, EN_PROGRESO, COMPLETADA
+  createdAt   DateTime @default(now())
+  
+  project     ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}

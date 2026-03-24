@@ -1,0 +1,1142 @@
+﻿node.exe : [{"filePath"
+:"C:\\Users\\vivae\\One
+Drive\\Documentos\\UTS\
+\portal-electrica\\src\
+\app\\(dashboard)\\subj
+ect\\[id]\\page.tsx","m
+essages":[{"ruleId":"@t
+ypescript-eslint/ban-ts
+-comment","severity":2,
+"message":"Use 
+\"@ts-expect-error\" 
+instead of 
+\"@ts-ignore\", as 
+\"@ts-ignore\" will do 
+nothing if the 
+following line is error
+-free.","line":21,"colu
+mn":7,"nodeType":"Line"
+,"messageId":"tsIgnoreI
+nsteadOfExpectError","e
+ndLine":21,"endColumn":
+73,"suggestions":[{"mes
+sageId":"replaceTsIgnor
+eWithTsExpectError","fi
+x":{"range":[881,947],"
+text":"// 
+@ts-expect-error: 
+Prisma client cache 
+sometimes lags in 
+Next.js build"},"desc":
+"Replace 
+\"@ts-ignore\" with \"@
+ts-expect-error\"."}]},
+{"ruleId":"@typescript-
+eslint/no-explicit-any"
+,"severity":2,"message"
+:"Unexpected any. 
+Specify a different typ
+e.","line":24,"column":
+10,"nodeType":"TSAnyKey
+word","messageId":"unex
+pectedAny","endLine":24
+,"endColumn":13,"sugges
+tions":[{"messageId":"s
+uggestUnknown","fix":{"
+range":[1019,1022],"tex
+t":"unknown"},"desc":"U
+se `unknown` instead, 
+this will force you to 
+explicitly, and safely 
+assert the type is corr
+ect."},{"messageId":"su
+ggestNever","fix":{"ran
+ge":[1019,1022],"text":
+"never"},"desc":"Use 
+`never` instead, this 
+is useful when 
+instantiating generic 
+type parameters that 
+you don't need to know 
+the type of."}]},{"rule
+Id":"@typescript-eslint
+/no-explicit-any","seve
+rity":2,"message":"Unex
+pected any. Specify a 
+different type.","line"
+:28,"column":22,"nodeTy
+pe":"TSAnyKeyword","mes
+sageId":"unexpectedAny"
+,"endLine":28,"endColum
+n":25,"suggestions":[{"
+messageId":"suggestUnkn
+own","fix":{"range":[10
+73,1076],"text":"unknow
+n"},"desc":"Use 
+`unknown` instead, 
+this will force you to 
+explicitly, and safely 
+assert the type is corr
+ect."},{"messageId":"su
+ggestNever","fix":{"ran
+ge":[1073,1076],"text":
+"never"},"desc":"Use 
+`never` instead, this 
+is useful when 
+instantiating generic 
+type parameters that 
+you don't need to know 
+the type of."}]},{"rule
+Id":"@typescript-eslint
+/no-explicit-any","seve
+rity":2,"message":"Unex
+pected any. Specify a 
+different type.","line"
+:177,"column":57,"nodeT
+ype":"TSAnyKeyword","me
+ssageId":"unexpectedAny
+","endLine":177,"endCol
+umn":60,"suggestions":[
+{"messageId":"suggestUn
+known","fix":{"range":[
+9832,9835],"text":"unkn
+own"},"desc":"Use 
+`unknown` instead, 
+this will force you to 
+explicitly, and safely 
+assert the type is corr
+ect."},{"messageId":"su
+ggestNever","fix":{"ran
+ge":[9832,9835],"text":
+"never"},"desc":"Use 
+`never` instead, this 
+is useful when 
+instantiating generic 
+type parameters that 
+you don't need to know 
+the type of."}]}],"supp
+ressedMessages":[],"err
+orCount":4,"fatalErrorC
+ount":0,"warningCount":
+0,"fixableErrorCount":0
+,"fixableWarningCount":
+0,"source":"import { 
+auth } from 
+\"@/lib/auth\"\nimport 
+prisma from 
+\"@/lib/db\"\nimport { 
+notFound, redirect } 
+from \"next/navigation\
+"\nimport Link from 
+\"next/link\"\nimport 
+{ Card, CardContent, 
+CardHeader, CardTitle 
+} from \"@/components/u
+i/card\"\nimport { 
+ArrowLeft, BookOpen, 
+GraduationCap, User, 
+Megaphone, Calendar, 
+Activity } from \"lucid
+e-react\"\nimport { 
+Button } from \"@/compo
+nents/ui/button\"\nimpo
+rt { 
+AnnouncementEditor } 
+from \"@/components/sub
+ject/AnnouncementEditor
+\"\nimport { DeleteAnno
+uncementButton } from \
+"@/components/subject/D
+eleteAnnouncementButton
+\"\n\nexport default 
+async function 
+SubjectDetailsPage({ 
+params }: { params: 
+Promise<{ id: string 
+}> }) {\n  const 
+session = await 
+auth()\n  if 
+(!session) redirect(\"/
+login\")\n\n  const { 
+id } = await params\n  
+\n  const subject = 
+(await prisma.subject.f
+indUnique({\n    
+where: { id },\n    
+include: {\n      
+teacher: { include: { 
+user: true } },\n      
+// @ts-ignore: Prisma 
+client cache sometimes 
+lags in Next.js 
+build\n      
+announcements: { 
+orderBy: { createdAt: 
+\"desc\" } }\n    }\n  
+})) as any\n\n  if 
+(!subject) 
+notFound()\n\n  let 
+studentGrades: any[] = 
+[]\n\n  if 
+(session.user.role === 
+\"STUDENT\") {\n    
+const profile = await p
+risma.studentProfile.fi
+ndUnique({ where: { 
+userId: 
+session.user.id } })\n 
+   if (!profile) 
+notFound()\n    \n    
+const enrollment = 
+await prisma.enrollment
+.findUnique({\n      
+where: { 
+studentId_subjectId: { 
+studentId: profile.id, 
+subjectId: id } },\n   
+   include: { grades: 
+true }\n    })\n    \n 
+   if (!enrollment) 
+{\n      return (\n    
+     <div 
+className=\"flex 
+flex-col items-center 
+justify-center 
+min-h-[50vh] 
+text-center 
+space-y-4\">\n         
+  <h1 
+className=\"text-2xl 
+font-bold text-oxfordGr
+ey-900\">Acceso 
+Denegado</h1>\n        
+   <p className=\"text-
+oxfordGrey-400\">No 
+est├ís inscrito en 
+esta materia.</p>\n    
+       <Link href=\"/da
+shboard\"><Button varia
+nt=\"outline\">Volver 
+al Dashboard</Button></
+Link>\n         
+</div>\n      )\n    
+}\n\n    studentGrades 
+= enrollment.grades\n  
+}\n\n  return (\n    
+<div 
+className=\"space-y-8 
+max-w-5xl mx-auto 
+pb-10\">\n      {/* 
+Navigation */}\n      
+<div className=\"flex 
+items-center gap-4 
+animate-fade-in-up\" 
+style={{ 
+animationDelay: 
+'0.1s', 
+animationFillMode: 
+'both' }}>\n        
+<Link 
+href=\"/dashboard\">\n 
+         <Button 
+variant=\"ghost\" class
+Name=\"text-oxfordGrey-
+400 hover:text-oxfordGr
+ey-900 hover:bg-oxfordG
+rey-100 p-0 h-auto 
+gap-2 group\">\n       
+     <ArrowLeft 
+className=\"w-5 h-5 gro
+up-hover:-translate-x-1
+ 
+transition-transform\" 
+/>\n            <span c
+lassName=\"font-medium\
+">Volver a mis 
+materias</span>\n      
+    </Button>\n        
+</Link>\n      
+</div>\n\n      {/* 
+Header */}\n      <div 
+className=\"bg-gradient
+-to-br 
+from-vinotinto-800 
+to-vinotinto-950 
+border border-vinotinto
+-700/50 rounded-2xl 
+p-8 relative 
+overflow-hidden 
+shadow-xl 
+animate-fade-in-up\" 
+style={{ 
+animationDelay: 
+'0.2s', 
+animationFillMode: 
+'both' }}>\n        
+<div 
+className=\"absolute 
+top-0 right-0 w-64 
+h-64 
+bg-utsGreen-300/10 
+rounded-full blur-3xl 
+-mr-20 -mt-20 
+pointer-events-none\" 
+/>\n        <div 
+className=\"absolute 
+bottom-0 left-0 w-64 
+h-64 
+bg-vinotinto-400/10 
+rounded-full blur-3xl 
+-ml-20 -mb-20 
+pointer-events-none\" 
+/>\n        \n        
+<div 
+className=\"relative 
+z-10\">\n          
+<div className=\"flex 
+flex-wrap items-start 
+justify-between 
+gap-4\">\n            
+<div>\n              
+<div className=\"flex 
+items-center gap-3 
+mb-3\">\n              
+  <span 
+className=\"px-3 py-1 
+bg-white/10 border 
+border-white/20 
+rounded-full text-xs 
+font-mono 
+text-white/80 
+shadow-sm\">\n         
+         
+{subject.code}\n       
+         </span>\n     
+           <span 
+className=\"px-3 py-1 
+bg-utsGreen-300/20 
+border 
+border-utsGreen-300/30 
+rounded-full text-xs 
+font-mono 
+text-utsGreen-300 
+shadow-sm flex 
+items-center 
+gap-1\">\n             
+     <BookOpen 
+className=\"w-3 h-3\" 
+/> {subject.credits} 
+Cr├®ditos\n            
+    </span>\n          
+    </div>\n           
+   <h1 
+className=\"text-3xl 
+md:text-5xl font-black 
+text-white 
+tracking-tight 
+leading-tight 
+mb-4\">\n              
+  {subject.name}\n     
+         </h1>\n       
+       <div 
+className=\"flex 
+items-center gap-2 
+text-white/60 
+bg-white/10 w-fit px-4 
+py-2 rounded-full 
+border 
+border-white/10\">\n   
+             <User 
+className=\"w-4 h-4 
+text-utsGreen-300\" 
+/>\n                
+<span className=\"text-
+sm\">Profesor: <strong 
+className=\"text-white 
+font-medium\">{subject.
+teacher.user.name}</str
+ong></span>\n          
+    </div>\n           
+ </div>\n          
+</div>\n        
+</div>\n      
+</div>\n\n      <div 
+className=\"grid 
+lg:grid-cols-3 
+gap-8\">\n        {/* 
+Left Column: Grades 
+(Only for students) 
+*/}\n        <div class
+Name=\"lg:col-span-1 
+space-y-6\">\n         
+ {session.user.role 
+=== \"STUDENT\" && (\n 
+           <Card 
+className=\"bg-white 
+border-oxfordGrey-200 
+shadow-lg 
+animate-fade-in-up\" 
+style={{ 
+animationDelay: 
+'0.3s', 
+animationFillMode: 
+'both' }}>\n           
+   <CardHeader 
+className=\"border-b 
+border-oxfordGrey-200 
+bg-oxfordGrey-50\">\n  
+              
+<CardTitle 
+className=\"flex 
+items-center gap-2 
+text-lg text-oxfordGrey
+-900\">\n              
+    <GraduationCap 
+className=\"w-5 h-5 
+text-utsGreen-600\" /> 
+Mis Calificaciones\n   
+             
+</CardTitle>\n         
+     </CardHeader>\n   
+           
+<CardContent 
+className=\"p-0\">\n   
+             <div 
+className=\"divide-y di
+vide-oxfordGrey-200\">\
+n                  
+{[1, 2, 3].map(cut => 
+{\n                    
+const grade = 
+studentGrades.find(g 
+=> g.cutNumber === 
+cut);\n                
+    return (\n         
+             <div 
+key={cut} 
+className=\"p-5 flex 
+justify-between 
+items-center 
+hover:bg-oxfordGrey-50 
+transition-colors\">\n 
+                       
+<div>\n                
+          <p 
+className=\"font-bold t
+ext-oxfordGrey-900\">Co
+rte {cut}</p>\n        
+                  <p 
+className=\"text-xs 
+text-oxfordGrey-400 
+mt-1 
+font-mono\">Valor: 
+{cut === 3 ? '40%' : 
+'30%'}</p>\n           
+             </div>\n  
+                      
+<div className=\"flex 
+flex-col 
+items-end\">\n         
+                 <span 
+className={`text-3xl 
+font-black 
+tracking-tighter 
+${grade ? (grade.score 
+>= 3.0 ? 
+'text-utsGreen-600' : 
+'text-red-500') : 'text
+-oxfordGrey-300'}`}>\n 
+                       
+    {grade ? 
+grade.score.toFixed(1) 
+: '-.-'}\n             
+             </span>\n 
+                       
+  {grade?.observation 
+&& (\n                 
+           <span classN
+ame=\"text-[10px] 
+text-oxfordGrey-400 
+mt-1 truncate 
+max-w-[100px] border 
+border-oxfordGrey-200 
+px-2 py-0.5 rounded 
+bg-oxfordGrey-50\" titl
+e={grade.observation}>\
+n                      
+        
+{grade.observation}\n  
+                       
+   </span>\n           
+               )}\n    
+                    
+</div>\n               
+       </div>\n        
+            )\n        
+          })}\n        
+        </div>\n       
+       
+</CardContent>\n       
+     </Card>\n         
+ )}\n\n          <Card 
+className=\"bg-white 
+border-oxfordGrey-200 
+shadow-lg 
+animate-fade-in-up\" 
+style={{ 
+animationDelay: 
+'0.4s', 
+animationFillMode: 
+'both' }}>\n           
+ <CardHeader className=
+\"bg-oxfordGrey-50\">\n
+              
+<CardTitle 
+className=\"flex 
+items-center gap-2 
+text-lg text-oxfordGrey
+-900\">\n              
+  <Activity 
+className=\"w-5 h-5 
+text-vinotinto-800\" 
+/> Estado de Materia\n 
+             
+</CardTitle>\n         
+   </CardHeader>\n     
+       <CardContent 
+className=\"space-y-4 
+pt-4\">\n              
+<div className=\"flex 
+justify-between 
+items-center p-3 
+bg-oxfordGrey-50 
+rounded-lg border borde
+r-oxfordGrey-200\">\n  
+              <span cla
+ssName=\"text-oxfordGre
+y-400 text-sm\">Estado 
+Acad├®mico</span>\n    
+            <span 
+className=\"px-3 py-1 
+bg-utsGreen-300/20 
+text-utsGreen-700 
+border 
+border-utsGreen-300/30 
+rounded-full text-xs 
+font-bold w-fit\">EN 
+CURSO</span>\n         
+     </div>\n          
+    <div 
+className=\"flex 
+justify-between 
+items-center p-3 
+bg-oxfordGrey-50 
+rounded-lg border borde
+r-oxfordGrey-200\">\n  
+              <span cla
+ssName=\"text-oxfordGre
+y-400 text-sm\">Departa
+mento</span>\n         
+       <span className=
+\"text-oxfordGrey-900 
+text-sm font-medium tex
+t-right\">{subject.teac
+her.department}</span>\
+n              
+</div>\n            
+</CardContent>\n       
+   </Card>\n        
+</div>\n\n        {/* 
+Right Column: 
+Announcements */}\n    
+    <div className={ses
+sion.user.role === 
+\"STUDENT\" ? 
+\"lg:col-span-2 
+space-y-6 
+animate-fade-in-up\" : 
+\"lg:col-span-3 
+space-y-6 
+animate-fade-in-up\"} 
+style={{ 
+animationDelay: 
+'0.5s', 
+animationFillMode: 
+'both' }}>\n          
+\n          <h2 
+className=\"text-2xl 
+font-bold 
+text-oxfordGrey-900 
+flex items-center 
+gap-3 mb-6 
+bg-oxfordGrey-50 p-4 
+rounded-xl border borde
+r-oxfordGrey-200\">\n  
+          <Megaphone 
+className=\"w-6 h-6 
+text-vinotinto-800\" 
+/> \n            Muro 
+de la Materia\n        
+    <span 
+className=\"ml-auto 
+text-xs font-normal 
+text-oxfordGrey-400 
+bg-white px-3 py-1 
+rounded-full border bor
+der-oxfordGrey-200\">\n
+              {subject.
+announcements.length} 
+Publicaciones\n        
+    </span>\n          
+</h2>\n\n          {/* 
+Teacher Action: Create 
+Announcement */}\n     
+     
+{session.user.role === 
+\"TEACHER\" && 
+session.user.id === 
+subject.teacher.userId 
+&& (\n            
+<AnnouncementEditor 
+subjectId={subject.id} 
+/>\n          )}\n     
+     \n          {subje
+ct.announcements.length
+ === 0 ? (\n           
+ <div className=\"bg-ox
+fordGrey-50 
+border-dashed border-2 
+border-oxfordGrey-200 
+rounded-2xl p-16 
+text-center flex 
+flex-col items-center 
+justify-center 
+transition-all 
+hover:bg-white\">\n    
+          <div 
+className=\"w-20 h-20 
+bg-oxfordGrey-100 
+rounded-full flex 
+items-center 
+justify-center 
+mb-6\">\n              
+  <Megaphone 
+className=\"w-8 h-8 
+text-oxfordGrey-300\" 
+/>\n              
+</div>\n              
+<h3 
+className=\"text-2xl 
+font-bold 
+text-oxfordGrey-900 
+mb-3\">No hay 
+publicaciones 
+activas</h3>\n         
+     <p className=\"tex
+t-oxfordGrey-400 
+max-w-md mx-auto 
+text-sm 
+leading-relaxed\">\n   
+             El 
+profesor no ha 
+compartido avisos o 
+material para esta 
+materia todav├¡a. Las 
+publicaciones 
+aparecer├ín aqu├¡ 
+ordenadas 
+cronol├│gicamente.\n   
+           </p>\n      
+      </div>\n         
+ ) : (\n            
+<div className=\"space-
+y-6\">\n              {
+subject.announcements.m
+ap((announcement: any) 
+=> (\n                
+<Card 
+key={announcement.id} 
+className=\"bg-white 
+border-oxfordGrey-200 h
+over:border-oxfordGrey-
+300 transition-all 
+duration-300 shadow-sm 
+hover:shadow-md group 
+relative 
+overflow-hidden\">\n   
+               <div 
+className=\"absolute 
+top-0 left-0 w-1 
+h-full 
+bg-vinotinto-800 
+opacity-50 
+transition-opacity grou
+p-hover:opacity-100\" 
+/>\n                  
+<CardContent 
+className=\"p-6 
+sm:p-8\">\n            
+        <div 
+className=\"flex 
+flex-col sm:flex-row 
+sm:items-start 
+justify-between gap-4 
+mb-6\">\n              
+         <h3 
+className=\"text-xl 
+sm:text-2xl font-bold 
+text-oxfordGrey-900 lea
+ding-tight\">{announcem
+ent.title}</h3>\n      
+                 <div 
+className=\"flex 
+items-center 
+gap-2\">\n             
+            <div 
+className=\"flex 
+items-center gap-2 
+text-xs 
+text-oxfordGrey-400 
+font-mono 
+whitespace-nowrap 
+bg-oxfordGrey-50 px-4 
+py-2 rounded-full 
+border border-oxfordGre
+y-200\">\n             
+              
+<Calendar 
+className=\"w-3.5 
+h-3.5\" />\n           
+                {new Da
+te(announcement.created
+At).toLocaleDateString(
+\"es-CO\", { day: 
+'numeric', month: 
+'short', year: 
+'numeric' })}\n        
+                 
+</div>\n               
+          
+{session.user.role === 
+\"TEACHER\" && 
+session.user.id === 
+subject.teacher.userId 
+&& (\n                 
+          <DeleteAnnoun
+cementButton 
+id={announcement.id} 
+subjectId={subject.id} 
+/>\n                   
+      )}\n             
+          </div>\n     
+               
+</div>\n               
+     <div 
+className=\"prose 
+max-w-none text-oxfordG
+rey-600\">\n           
+           <p className
+=\"whitespace-pre-wrap 
+leading-relaxed 
+text-[15px]\">\n       
+                 {annou
+ncement.content}\n     
+                 
+</p>\n                 
+   </div>\n            
+      </CardContent>\n 
+               
+</Card>\n              
+))}\n            
+</div>\n          )}\n 
+       </div>\n      
+</div>\n    </div>\n  )
+\n}\n","usedDeprecatedR
+ules":[]},{"filePath":"
+C:\\Users\\vivae\\OneDr
+ive\\Documentos\\UTS\\p
+ortal-electrica\\src\\c
+omponents\\news\\NewsEd
+itor.tsx","messages":[{
+"ruleId":"@next/next/no
+-img-element","severity
+":1,"message":"Using 
+`<img>` could result 
+in slower LCP and 
+higher bandwidth. 
+Consider using `<Image 
+/>` from `next/image` 
+to automatically 
+optimize images. This 
+may incur additional 
+usage or cost from 
+your provider. See: htt
+ps://nextjs.org/docs/me
+ssages/no-img-element",
+"line":90,"column":23,"
+nodeType":"JSXOpeningEl
+ement","endLine":90,"en
+dColumn":100}],"suppres
+sedMessages":[],"errorC
+ount":0,"fatalErrorCoun
+t":0,"warningCount":1,"
+fixableErrorCount":0,"f
+ixableWarningCount":0,"
+source":"\"use 
+client\"\n\nimport { 
+useState } from 
+\"react\"\nimport { 
+useRouter } from \"next
+/navigation\"\nimport 
+{ Button } from \"@/com
+ponents/ui/button\"\nim
+port { Card, 
+CardContent, 
+CardHeader, CardTitle 
+} from \"@/components/u
+i/card\"\nimport { 
+createNewsAction } 
+from \"@/actions/news\"
+\nimport { motion, 
+AnimatePresence } from 
+\"framer-motion\"\n\nex
+port function 
+NewsEditor() {\n  
+const [isOpen, 
+setIsOpen] = 
+useState(false)\n  
+const [loading, 
+setLoading] = 
+useState(false)\n  
+const [error, 
+setError] = 
+useState(\"\")\n  
+const [previewUrl, 
+setPreviewUrl] = 
+useState<string | 
+null>(null)\n  const 
+router = 
+useRouter()\n\n  const 
+handleFileChange = (e: 
+React.ChangeEvent<HTMLI
+nputElement>) => {\n   
+ const file = 
+e.target.files?.[0]\n  
+  if (file) {\n      se
+tPreviewUrl(URL.createO
+bjectURL(file))\n    } 
+else {\n      
+setPreviewUrl(null)\n  
+  }\n  }\n\n  const 
+handleSubmit = async 
+(e: React.FormEvent<HTM
+LFormElement>) => {\n  
+  e.preventDefault()\n 
+   setLoading(true)\n  
+  setError(\"\")\n\n   
+ const formData = new F
+ormData(e.currentTarget
+)\n    \n    try {\n   
+   await createNewsActi
+on(formData)\n      
+setIsOpen(false)\n     
+ router.refresh()\n    
+} catch (err) {\n      
+if (err instanceof 
+Error) {\n        setEr
+ror(err.message)\n     
+ } else {\n        
+setError(\"Error al 
+publicar la 
+noticia.\")\n      }\n 
+   } finally {\n      
+setLoading(false)\n    
+}\n  }\n\n  return (\n 
+   <div 
+className=\"mb-8\">\n  
+    {!isOpen ? (\n     
+   <Button onClick={() 
+=> setIsOpen(true)} cla
+ssName=\"bg-vinotinto-8
+00 text-white hover:bg-
+vinotinto-700\">\n     
+     Publicar Nueva 
+Noticia en Inicio\n    
+    </Button>\n      ) 
+: (\n        
+<AnimatePresence>\n    
+      <motion.div\n    
+        initial={{ 
+opacity: 0, height: 0 
+}}\n            
+animate={{ opacity: 1, 
+height: \"auto\" }}\n  
+          exit={{ 
+opacity: 0, height: 0 
+}}\n            classNa
+me=\"overflow-hidden\"\
+n          >\n         
+   <Card className=\"bo
+rder-vinotinto-800/30 
+shadow-lg\">\n         
+     <CardHeader>\n    
+            
+<CardTitle>Editor de 
+Noticias (Carrusel 
+Home)</CardTitle>\n    
+          
+</CardHeader>\n        
+      <CardContent>\n  
+              {error 
+&& <p className=\"text-
+red-500 
+mb-4\">{error}</p>}\n  
+              <form onS
+ubmit={handleSubmit} cl
+assName=\"space-y-4\">\
+n                  
+<div>\n                
+    <label 
+className=\"text-sm 
+text-oxfordGrey-500 
+mb-1 block\">T├¡tulo</l
+abel>\n                
+    <input 
+name=\"title\" 
+required minLength={5} 
+className=\"w-full 
+bg-oxfordGrey-50 p-2 
+rounded-md border 
+border-oxfordGrey-200 
+text-oxfordGrey-900 foc
+us:border-vinotinto-800
+ focus:ring-1 focus:rin
+g-vinotinto-800 
+outline-none 
+transition-all\" />\n  
+                
+</div>\n               
+   <div>\n             
+       <label 
+className=\"text-sm 
+text-oxfordGrey-500 
+mb-1 block\">Resumen / 
+Contenido</label>\n    
+                
+<textarea 
+name=\"content\" 
+required 
+minLength={10} 
+rows={3} 
+className=\"w-full 
+bg-oxfordGrey-50 p-2 
+rounded-md border 
+border-oxfordGrey-200 
+text-oxfordGrey-900 foc
+us:border-vinotinto-800
+ focus:ring-1 focus:rin
+g-vinotinto-800 
+outline-none 
+transition-all\" />\n  
+                
+</div>\n               
+   <div>\n             
+       <label 
+className=\"text-sm 
+text-oxfordGrey-500 
+mb-1 block\">Subir 
+Imagen desde Archivo (R
+ecomendado)</label>\n  
+                  
+<input \n              
+        
+name=\"imageFile\" \n  
+                    
+type=\"file\" \n       
+               
+accept=\"image/*\" \n  
+                    onC
+hange={handleFileChange
+}\n                    
+  className=\"w-full 
+bg-oxfordGrey-50 p-2 
+rounded-md border 
+border-oxfordGrey-200 
+text-oxfordGrey-900 
+file:mr-4 file:py-2 
+file:px-4 
+file:rounded-full 
+file:border-0 
+file:text-sm 
+file:font-semibold 
+file:bg-vinotinto-800 
+file:text-white hover:f
+ile:bg-vinotinto-700 
+cursor-pointer\" \n    
+                />\n   
+               
+</div>\n\n             
+     {previewUrl && 
+(\n                    
+<div 
+className=\"relative 
+w-full h-40 rounded-lg 
+overflow-hidden border 
+border-vinotinto-800/30
+\">\n                  
+    <img 
+src={previewUrl} 
+alt=\"Preview\" 
+className=\"w-full 
+h-full object-cover\" 
+/>\n                   
+   <button \n          
+              
+type=\"button\"\n      
+                  
+onClick={() => 
+setPreviewUrl(null)}\n 
+                       
+className=\"absolute 
+top-2 right-2 
+bg-red-500 text-white 
+p-1 rounded-full 
+text-xs\"\n            
+          >\n          
+              Ô£ò\n    
+                  
+</button>\n            
+        </div>\n       
+           )}\n        
+          <div>\n      
+              <label 
+className=\"text-sm 
+text-oxfordGrey-500 
+mb-1 block\">O URL de 
+Imagen (Alternativo)</l
+abel>\n                
+    <input 
+name=\"imageUrl\" 
+type=\"url\" placeholde
+r=\"https://ejemplo.com
+/imagen.jpg\" 
+className=\"w-full 
+bg-oxfordGrey-50 p-2 
+rounded-md border 
+border-oxfordGrey-200 
+text-oxfordGrey-900 foc
+us:border-vinotinto-800
+ focus:ring-1 focus:rin
+g-vinotinto-800 
+outline-none 
+transition-all\" />\n  
+                
+</div>\n               
+   <div>\n             
+       <label 
+className=\"text-sm 
+text-oxfordGrey-500 
+mb-1 block\">Enlace a 
+Noticia Externa 
+(Opcional)</label>\n   
+                 
+<input 
+name=\"linkUrl\" 
+type=\"url\" placeholde
+r=\"https://ejemplo.com
+/noticia-completa\" 
+className=\"w-full 
+bg-oxfordGrey-50 p-2 
+rounded-md border 
+border-oxfordGrey-200 
+text-oxfordGrey-900 foc
+us:border-vinotinto-800
+ focus:ring-1 focus:rin
+g-vinotinto-800 
+outline-none 
+transition-all\" />\n  
+                
+</div>\n               
+   <div>\n             
+       <label 
+className=\"text-sm 
+text-oxfordGrey-500 
+mb-1 block\">URL de 
+Video (YouTube/Direct) 
+(Opcional)</label>\n   
+                 
+<input 
+name=\"videoUrl\" 
+type=\"url\" placeholde
+r=\"https://youtube.com
+/watch?...\" 
+className=\"w-full 
+bg-oxfordGrey-50 p-2 
+rounded-md border 
+border-oxfordGrey-200 
+text-oxfordGrey-900 foc
+us:border-vinotinto-800
+ focus:ring-1 focus:rin
+g-vinotinto-800 
+outline-none 
+transition-all\" />\n  
+                
+</div>\n               
+   <div 
+className=\"flex gap-2 
+justify-end\">\n       
+             <Button 
+type=\"button\" 
+variant=\"ghost\" 
+onClick={() => setIsOpe
+n(false)}>Cancelar</But
+ton>\n                 
+   <Button 
+type=\"submit\" 
+disabled={loading} clas
+sName=\"bg-vinotinto-80
+0 
+hover:bg-vinotinto-700 
+text-white\">\n        
+              {loading 
+? \"Publicando...\" : 
+\"Publicar\"}\n        
+            
+</Button>\n            
+      </div>\n         
+       </form>\n       
+       
+</CardContent>\n       
+     </Card>\n         
+ </motion.div>\n       
+ </AnimatePresence>\n  
+    )}\n    </div>\n  )
+\n}\n","usedDeprecatedR
+ules":[]}]
+En línea: 1 Carácter: 1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: ([{"filePath":   
+ "C...atedRules":[]    
+}]:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+
+info  - Need to 
+disable some ESLint 
+rules? Learn more 
+here: https://nextjs.or
+g/docs/basic-features/e
+slint#disabling-rules

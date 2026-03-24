@@ -1,0 +1,1 @@
+﻿src/app/semillero-age/[id]/page.tsx(100,30): error TS2304: Cannot find name 'Activity'.
