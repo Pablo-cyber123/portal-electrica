@@ -1,22 +1,27 @@
 "use server"
 
+import { prisma } from "@/lib/prisma"
+
 export async function getFacebookPosts() {
-  const pageId = process.env.FACEBOOK_PAGE_ID;
-  const accessToken = process.env.FACEBOOK_ACCESS_TOKEN;
+  const settings = await prisma.appSetting.findMany()
+
+  const pageIdSetting = settings.find(s => s.key === "FACEBOOK_PAGE_ID")
+  const accessTokenSetting = settings.find(s => s.key === "FACEBOOK_ACCESS_TOKEN")
+
+  const pageId = pageIdSetting?.value || process.env.FACEBOOK_PAGE_ID;
+  const accessToken = accessTokenSetting?.value || process.env.FACEBOOK_ACCESS_TOKEN;
 
   if (!pageId || !accessToken) {
     return { error: 'Faltan credenciales de Facebook' };
   }
 
   try {
-    // Pedimos el mensaje, fecha de creación, imagen principal, URL permanente
-    // y si hay álbum de fotos, los attachments proporcionan más imágenes.
     const url = `https://graph.facebook.com/v19.0/${pageId}/posts?fields=id,message,created_time,full_picture,permalink_url,attachments{subattachments}&limit=10&access_token=${accessToken}`;
     
+    // Configuración para evitar el cacheo agresivo de Next.js
     const response = await fetch(url, { 
-      // Revalidar cada 15 minutos para mantenerlo actualizado pero sin saturar la API
-      next: { revalidate: 900 } 
-    }); 
+      cache: 'no-store'
+    });
     
     const data = await response.json();
 
@@ -25,9 +30,7 @@ export async function getFacebookPosts() {
       return { error: data.error.message || 'Error al conectar con la API de Facebook' };
     }
 
-    // Mapear la respuesta de Facebook a nuestra interfaz
     const posts = data.data.map((post: any) => {
-      // Extraer un título lógico de la primera línea del mensaje
       let title = "Nueva Publicación";
       if (post.message) {
         const firstLine = post.message.split('\n')[0].trim();
@@ -38,7 +41,6 @@ export async function getFacebookPosts() {
       const date = postDate.toLocaleDateString('es-CO');
       const time = postDate.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
 
-      // Obtener todas las imágenes posibles (principal + subadjuntos)
       const images: string[] = [];
       if (post.full_picture) images.push(post.full_picture);
       
@@ -55,10 +57,10 @@ export async function getFacebookPosts() {
         title,
         date,
         time,
-        modality: "Vía Facebook", // Dato genérico para Facebook
-        speaker: "Comunidad Eléctrica UTS", // Dato genérico
+        modality: "Vía Facebook",
+        speaker: "Comunidad Eléctrica UTS",
         content: post.message || "Ver más detalles en la publicación original.",
-        images: images.length > 0 ? images : ["https://picsum.photos/seed/uts-fb-default/800/600"], // Fallback si no hay foto
+        images: images.length > 0 ? images : ["https://picsum.photos/seed/uts-fb-default/800/600"],
         url: post.permalink_url || `https://www.facebook.com/${pageId}`
       };
     });

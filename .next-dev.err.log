@@ -1,0 +1,460 @@
+⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+⚠ Invalid next.config.mjs options detected: 
+⚠     Unrecognized key(s) in object: 'eslint'
+⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\vivae\OneDrive\Documentos\UTS\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\vivae\OneDrive\Documentos\UTS\portal-electrica\package-lock.json
+
+[browser] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. (<anonymous>)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerLayoutRouter url="/dashboard" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+      <SegmentViewNode type="page" pagePath="(dashboard...">
+        <SegmentTrieNode>
+        <DashboardHome>
+          <div className="space-y-8">
+            <div>
+            <div>
+            <DegreeProjectStudentPanel deadlineText="30 de mayo..." daysRemaining={56} canSubmit={true} ...>
+              <div className="grid gap-6...">
+                <div className="space-y-6">
+                  <_c className="border-oxf...">
+                    <div ref={null} className="rounded-xl...">
+                      <_c2>
+                      <_c6 className="space-y-4">
+                        <div ref={null} className="p-6 pt-0 s...">
+                          <div>
+                          <div className="rounded-xl...">
+                            <div>
+                            <p>
+                            <div className="flex flex-...">
+                              <span>
++                               5/4/2026, 1:07:11 p. m.
+-                               5/4/2026, 1:07:11 p. m.
+                            ...
+                  ...
+                ...
+            ...
+      ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at span (<anonymous>)
+    at DegreeProjectStudentPanel (src/components/dashboard/DegreeProjectStudentPanel.tsx:150:19)
+    at DashboardHome (src\app\(dashboard)\dashboard\page.tsx:290:9)
+  148 |                 <p className="text-sm text-oxfordGrey-600">{idea.summary}</p>
+  149 |                 <div className="flex flex-wrap gap-4 text-xs text-oxfordGrey-500">
+> 150 |                   <span>Enviado: {new Date(idea.submittedAt).toLocaleString("es-CO")}</span>
+      |                   ^
+  151 |                   {idea.reviewedAt ? <span>Revisado: {new Date(idea.reviewedAt).toLocaleS...
+  152 |                   {idea.reviewedByName ? <span>Profesor: {idea.reviewedByName}</span> : n...
+  153 |                 </div>
+⨯ ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+  [90m 7 |[0m [36mimport[0m { [33mCard[0m, [33mCardContent[0m, [33mCardHeader[0m, [33mCardTitle[0m } [36mfrom[0m [32m"@/components/ui/card"[0m
+  [90m 8 |[0m
+[31m[1m>[0m [90m 9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m10 |[0m
+  [90m11 |[0m [36mconst[0m [33mDEFAULT_PROJECT_DEADLINE[0m = [36mnew[0m [33mDate[0m([32m"2026-05-30T23:59:59-05:00"[0m)
+  [90m12 |[0m
+
+Ecmascript file had an error
+
+
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+⨯ ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+  [90m 7 |[0m [36mimport[0m { [33mCard[0m, [33mCardContent[0m, [33mCardHeader[0m, [33mCardTitle[0m } [36mfrom[0m [32m"@/components/ui/card"[0m
+  [90m 8 |[0m
+[31m[1m>[0m [90m 9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m10 |[0m
+  [90m11 |[0m [36mconst[0m [33mDEFAULT_PROJECT_DEADLINE[0m = [36mnew[0m [33mDate[0m([32m"2026-05-30T23:59:59-05:00"[0m)
+  [90m12 |[0m
+
+Ecmascript file had an error
+
+
+[browser] Uncaught Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error
+
+
+    at <unknown> (Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+    at <unknown> (Error: (./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+⨯ ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+  [90m 7 |[0m [36mimport[0m { [33mCard[0m, [33mCardContent[0m, [33mCardHeader[0m, [33mCardTitle[0m } [36mfrom[0m [32m"@/components/ui/card"[0m
+  [90m 8 |[0m
+[31m[1m>[0m [90m 9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m10 |[0m
+  [90m11 |[0m [36mconst[0m [33mDEFAULT_PROJECT_DEADLINE[0m = [36mnew[0m [33mDate[0m([32m"2026-05-30T23:59:59-05:00"[0m)
+  [90m12 |[0m
+
+Ecmascript file had an error
+
+
+[browser] Uncaught Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error
+
+
+    at <unknown> (Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+    at <unknown> (Error: (./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+⨯ ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+  [90m 7 |[0m [36mimport[0m { [33mCard[0m, [33mCardContent[0m, [33mCardHeader[0m, [33mCardTitle[0m } [36mfrom[0m [32m"@/components/ui/card"[0m
+  [90m 8 |[0m
+[31m[1m>[0m [90m 9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m10 |[0m
+  [90m11 |[0m [36mconst[0m [33mDEFAULT_PROJECT_DEADLINE[0m = [36mnew[0m [33mDate[0m([32m"2026-05-30T23:59:59-05:00"[0m)
+  [90m12 |[0m
+
+Ecmascript file had an error
+
+
+[browser] Uncaught Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error
+
+
+    at <unknown> (Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+    at <unknown> (Error: (./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] Uncaught Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error
+
+
+    at <unknown> (Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+    at <unknown> (Error: (./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] Uncaught Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error
+
+
+    at <unknown> (Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+    at <unknown> (Error: (./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] Uncaught Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error
+
+
+    at <unknown> (Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+    at <unknown> (Error: (./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] Uncaught Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error
+
+
+    at <unknown> (Error: ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+    at <unknown> (Error: (./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1)
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+[browser] ./portal-electrica/src/app/(dashboard)/dashboard/calendario/page.tsx:9:1
+Only async functions are allowed to be exported in a "use server" file.
+   7 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   8 |
+>  9 | export const dynamic = "force-dynamic"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | const DEFAULT_PROJECT_DEADLINE = new Date("2026-05-30T23:59:59-05:00")
+  12 |
+
+Ecmascript file had an error 
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⚠ Fast Refresh had to perform a full reload when ./portal-electrica/node_modules/next/dist/shared/lib/router/router.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. (<anonymous>)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+[browser] No se pudo cargar FB real, usando datos de prueba: Faltan credenciales de Facebook (src/components/news/FacebookFeed.tsx:35:17)
+⨯ TypeError: Cannot read properties of undefined (reading 'findMany')
+    at CalendarioPage (src\app\(dashboard)\dashboard\calendario\page.tsx:38:26)
+  36 |       orderBy: { submissionDeadline: "asc" }
+  37 |     }),
+> 38 |     prisma.academicEvent.findMany({
+     |                          ^
+  39 |       orderBy: [{ startDate: "asc" }, { title: "asc" }]
+  40 |     })
+  41 |   ]) {
+  digest: '2108419930'
+}
+[browser] Uncaught TypeError: Cannot read properties of undefined (reading 'findMany')
+    at CalendarioPage (src\app\(dashboard)\dashboard\calendario\page.tsx:38:26)
+  36 |       orderBy: { submissionDeadline: "asc" }
+  37 |     }),
+> 38 |     prisma.academicEvent.findMany({
+     |                          ^
+  39 |       orderBy: [{ startDate: "asc" }, { title: "asc" }]
+  40 |     })
+  41 |   ])
+^C^C
